@@ -1,3 +1,4 @@
+from random import random
 from game_state import game_state, Player
 from game_engine import game_engine
 
@@ -34,6 +35,9 @@ class ai:
                 if eval_score > max_eval:
                     max_eval = eval_score
                     best_move = move
+                if eval_score == max_eval: # Zufällige Zugwahl bei gleich guten Zügen
+                    if random() > 0.5:
+                        best_move = move
             cache[board_key] = (max_eval, best_move)
             return max_eval, best_move
         else:

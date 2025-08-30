@@ -74,3 +74,7 @@ class game_engine:
                 if self.game_state.board[i][j] == Player.NONE:
                     moves.append(f"{i},{j}")
         return moves
+
+    def reset_game(self):
+        with self.game_state.lock:
+            self.game_state = game_state()

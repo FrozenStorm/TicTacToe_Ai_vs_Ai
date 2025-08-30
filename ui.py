@@ -28,6 +28,8 @@ class ui:
         self.entry.grid(row=game_engine.game_state.board_size+1, column=0, columnspan=2, sticky='w', padx=5, pady=5)
         self.button = tk.Button(root, text="Stein setzen", command=self.handle_input)
         self.button.grid(row=game_engine.game_state.board_size+1, column=2, columnspan=1, sticky='e', padx=5, pady=5)
+        self.button_reset = tk.Button(root, text="Reset Game", command=self.handle_reset)
+        self.button_reset.grid(row=game_engine.game_state.board_size + 1, column=3, columnspan=1, sticky='e', padx=5, pady=5)
 
         self.update_gui()
 
@@ -39,6 +41,9 @@ class ui:
         else:
             self.status_label.config(text="Ungültiger Zug! Bitte 'row,col' eingeben.")
         self.entry.delete(0, tk.END)
+
+    def handle_reset(self):
+        self.game_engine.reset_game()
 
     def update_gui(self):
         with self.game_engine.game_state.lock:
