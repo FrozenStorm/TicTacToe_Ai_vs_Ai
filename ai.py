@@ -7,7 +7,7 @@ class ai:
         self.game_engine = game_engine
         self.MAX_WINNER_VALUE = 10000
 
-    def minimax(self, depth, maximizing_player, cache=None):
+    def calc_best_move(self, max_depth, maximizing_player, cache=None):
         if cache is None:
             cache = {}
 
@@ -16,7 +16,7 @@ class ai:
             return cache[board_key]
 
         winner = self.game_engine.check_winner()
-        if winner != Player.NONE or depth == 0:
+        if winner != Player.NONE or max_depth == 0:
             score = self.evaluate_board()
             cache[board_key] = (score, None)
             return score, None
@@ -30,7 +30,7 @@ class ai:
                 success = self.game_engine.make_move(move, Player.MAX)
                 if not success:
                     continue
-                eval_score, _ = self.minimax(depth - 1, Player.MIN, cache)
+                eval_score, _ = self.calc_best_move(max_depth - 1, Player.MIN, cache)
                 self.game_engine.undo_move(move, Player.MAX)  # Zum zurückstellen aktuellen Zug wieder entfernen
                 if eval_score > max_eval:
                     max_eval = eval_score
@@ -47,7 +47,7 @@ class ai:
                 success = self.game_engine.make_move(move, Player.MIN)
                 if not success:
                     continue
-                eval_score, _ = self.minimax(depth - 1, Player.MAX, cache)
+                eval_score, _ = self.calc_best_move(max_depth - 1, Player.MAX, cache)
                 self.game_engine.undo_move(move, Player.MIN)
                 if eval_score < min_eval:
                     min_eval = eval_score
