@@ -9,7 +9,7 @@ class Player(Enum):
 
 class game_state:
     def __init__(self):
-        self.board_size = 5
+        self.board_size = 3
         self.board = [[Player.NONE for _ in range(self.board_size)] for _ in range(self.board_size)]
         self.current_player = Player.MAX
         self.game_over = False

@@ -11,10 +11,11 @@ class ai:
     Korrigierte hochoptimierte AI - das None-Problem wurde behoben
     """
 
-    def __init__(self, game_engine, max_time=2.0):
+    def __init__(self, game_engine):
+        self.MAX_DEPTH=3
+        self.max_search_time = 2.0
         self.game_engine = game_engine
         self.MAX_WINNER_VALUE = 10000
-        self.max_search_time = max_time
 
         # Transposition Table mit mehr Informationen
         self.transposition_table = {}
@@ -70,7 +71,10 @@ class ai:
 
         return hash_value
 
-    def calc_best_move(self, max_depth, maximizing_player, cache=None):
+    def calc_best_move(self, maximizing_player):
+        return self.pvs(maximizing_player, self.MAX_DEPTH)
+
+    def pvs(self, maximizing_player, max_depth, cache=None):
         """
         KORRIGIERT: Hauptsuchfunktion mit Iterative Deepening
         """
