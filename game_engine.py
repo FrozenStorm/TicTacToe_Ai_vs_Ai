@@ -1,6 +1,4 @@
-import threading
 from game_state import game_state,Player
-import copy
 
 class game_engine:
     def __init__(self):
